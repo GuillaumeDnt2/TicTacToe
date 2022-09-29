@@ -1,16 +1,19 @@
+/*
+ *  Guillaume Dunant
+ */
 #include <iostream>
 
-bool checkWin(char board[], char plyChar) {
+bool checkWin(char board[9], char plyChar) {
     //Check the lines
-    for (int i = 0; i < 9; i++) {
-        if (board[i] == board[i + 3] && board[i] == board[i + 6] && board[i] == plyChar) {
+    for (int i = 0; i < 9; i+=3) {
+        if (board[i] == board[i + 1] && board[i] == board[i + 2] && board[i] == plyChar) {
             return true;
         }
     }
 
     //Check the columns
-    for (int i = 0; i < 3; i += 3) {
-        if (board[i] == board[i + 1] && board[i] == board[i + 2] && board[i] == plyChar) {
+    for (int i = 0; i < 3; i ++) {
+        if (board[i] == board[i + 3] && board[i] == board[i + 6] && board[i] == plyChar) {
             return true;
         }
     }
@@ -47,16 +50,19 @@ int convertInputToInt(char input)
 int main() {
     //Variables
     char boardChar[9] = {'.','.','.','.','.','.','.','.','.'};
-    char playerChar = 'O';
+    char actualPlayerChar = 'O';
+    char ply1Char = 'X';
+    char ply2Char = 'O';
     bool notValidInput;
+
 
     //Main code
     do {
         //Change the actual player
-        if(playerChar == 'X'){
-            playerChar = 'O';
+        if(actualPlayerChar == ply1Char){
+            actualPlayerChar = ply2Char;
         } else{
-            playerChar = 'X';
+            actualPlayerChar = ply1Char;
         }
 
         //Set not valid input to true
@@ -64,7 +70,7 @@ int main() {
 
         do {
             //Ask the player to play
-            if (playerChar == 'X') {
+            if (actualPlayerChar == ply1Char) {
                 std::cout << "C'est au joueur 1 de jouer : " << std::endl;
             } else {
                 std::cout << "C'est au joueur 2 de jouer : " << std::endl;
@@ -83,24 +89,26 @@ int main() {
             //if the input is valid
             if (intInput >= 0) {
                 //Change the value of the board
-                boardChar[intInput] = playerChar;
+                boardChar[intInput] = actualPlayerChar;
                 notValidInput = false;
             }
             //if not
             else{
-                std::cerr << "Entree invalide >:(";
+                std::cout << "!!!! Entree invalide !!!!" << std::endl;
             }
         } while (notValidInput);
 
-    }while(!checkWin(boardChar, playerChar)); //Repeat until someone won
+    }while(!checkWin(boardChar, actualPlayerChar)); //Repeat until someone won
 
     //Display the winner
-    if(playerChar == 'X') {
+    if(actualPlayerChar == ply1Char) {
         std::cout << "Player 1 won!!!!!!";
     }
     else{
         std::cout << "Player 2 won!!!!!!";
     }
+
+
 
 
     return 0;
