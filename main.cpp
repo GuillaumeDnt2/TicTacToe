@@ -1,6 +1,7 @@
 /*
  *  Guillaume Dunant - Tic Tac Toe
  *  Laboratoire 1 - Prg 1
+ *  29.09.2022
  */
 #include <iostream>
 
