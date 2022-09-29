@@ -1,5 +1,6 @@
 /*
- *  Guillaume Dunant
+ *  Guillaume Dunant - Tic Tac Toe
+ *  Laboratoire 1 - Prg 1
  */
 #include <iostream>
 
@@ -30,10 +31,17 @@ bool checkWin(char board[9], char plyChar) {
 }
 
 void displayBoard(char board[]){
+
+    std::cout << board[0] << " | " << board[1] << " | " << board[2] << std::endl;
+    std::cout << "---------" << std::endl;
+    std::cout << board[3] << " | " << board[4] << " | " << board[5] << std::endl;
+    std::cout << "---------" << std::endl;
+    std::cout << board[6] << " | " << board[7] << " | " << board[8] << std::endl;
+    /*
     for(int i = 0; i < 9; i+=3)
     {
         std::cout << "\t" << board[i] << "\t" << board[i+1] << "\t" << board[i+2] << std::endl;
-    }
+    }*/
 }
 
 int convertInputToInt(char input)
@@ -47,9 +55,14 @@ int convertInputToInt(char input)
     return -1;
 }
 
+bool isCaseEmpty(char board[], int number)
+{
+    return (board[number] == ' ');
+}
+
 int main() {
     //Variables
-    char boardChar[9] = {'.','.','.','.','.','.','.','.','.'};
+    char boardChar[9] = {' ',' ',' ',' ',' ',' ',' ',' ',' '};
     char actualPlayerChar = 'O';
     char ply1Char = 'X';
     char ply2Char = 'O';
@@ -86,11 +99,16 @@ int main() {
             //Convert the input into int
             int intInput = convertInputToInt(input);
 
-            //if the input is valid
+            //if the input is a number
             if (intInput >= 0) {
-                //Change the value of the board
-                boardChar[intInput] = actualPlayerChar;
-                notValidInput = false;
+                //If the case is empty
+                if(isCaseEmpty(boardChar, intInput)) {
+                    //Change the value of the board
+                    boardChar[intInput] = actualPlayerChar;
+                    notValidInput = false;
+                } else{
+                    std::cout << "!!!! Case deja occupee !!!!" << std::endl;
+                }
             }
             //if not
             else{
@@ -102,14 +120,14 @@ int main() {
 
     //Display the winner
     if(actualPlayerChar == ply1Char) {
-        std::cout << "Player 1 won!!!!!!";
+        std::cout << "Player 1 a gagne!!!!!!" << std::endl;
     }
     else{
-        std::cout << "Player 2 won!!!!!!";
+        std::cout << "Player 2 a gagne!!!!!!" << std::endl;
     }
 
-
-
+    //Display the board to show the final board
+    displayBoard(boardChar);
 
     return 0;
 }
